@@ -1,0 +1,225 @@
+#ifndef __USR_CMD_H
+#define __USR_CMD_H
+
+#include "stdint.h"
+
+/* USR CMD */
+#define USR_CMD_HEAT_PROFILE    0x40
+#define USR_CMD_LOG_MASK    0x41
+#define USR_CMD_BUTTON      0x42
+#define USR_CMD_VER         0x43
+#define USR_CMD_WD_APP      0x44
+#define USR_CMD_REBOOT      0x45
+#define USR_CMD_HEAT        0x46
+#define USR_CMD_RESET_PWM_PARAMETER    0x47
+#define USR_CMD_ADC         0x48
+#define USR_CMD_GET_CHARGE  0x49
+#define USR_CMD_HAPTIC_ON_OFF        0x4A
+#define USR_CMD_HTR_PWM_DUTY    0x4B
+#define USR_CMD_HTR_PWM_CLOCK   0x4C
+#define USR_CMD_CHG_IC_LOG  0x4D
+#define USR_CMD_MODIFY_VALUE    0x4E
+#define USR_CMD_RECALCULATE_BAT   0x4F
+#define USR_CMD_SHUT_TIME   0x50
+#define USR_CMD_DISPLAY_LED 0x51
+#define USR_CMD_SET_LED_PATTERN  0x52
+#define USR_CMD_SHUTDOWN    0x53
+#define USR_CMD_SET_HAPTIC_PATTERN     0x54
+#define USR_CMD_DISPLAY_HAPTIC_PATTERN   0x55
+#define USR_CMD_CLEAR_RETURN_ERR_FLAG   0x56
+#define USR_CMD_READ_CURRENT_ERROR   0x57
+#define USR_CMD_READ_ERROR_STASTIC   0x58
+#define USR_CMD_READ_LIFECYCLE   0x59
+#define USR_CMD_READ_100_SESSIONS   0x5A
+#define USR_CMD_RESET_LED_PATTERN   0x5B
+#define USR_CMD_RESET_HAPTIC   0x5C
+#define USR_CMD_DISABLE_CHARGE   0x5D
+#define USR_CMD_ENABLE_CHARGE  0x5E
+#define USR_CMD_CYCLE_LOG  0x5F
+#define USR_CMD_HEAT_LOG_16MS  0x60
+#define USR_CMD_SET_HEAT_BATV  0x61
+#define USR_CMD_ERASE_FREQUENT_DATA_FLASH  0x62
+#define USR_CMD_READ_DISCHARGE_CUTOFF_VOLT  0x63
+#define USR_CMD_READ_RECORD_WHEN_ERR 0x64
+#define USR_CMD_SET_HAPTIC_INTENSITY 0x65
+#define USR_CMD_SHOW_OLED_PATTERN 0x66
+#define USR_CMD_OLED_BRIGHTNESS 0x67
+#define USR_CMD_SET_LED_INTENSITY 0x68
+#define USR_CMD_RESET_LED_INTENSITY 0x69
+#define USR_CMD_GET_HAPTIC_INTENSITY 0x6A
+#define USR_CMD_GET_HAPTIC_PATTERN 0x6B
+//#define USR_CMD_SET_B2B_BATT_TEMP_LIMIT   0x6C
+#define USR_CMD_SET_PRE_SES_BATT_TEMP_LIMIT   0x6C
+#define USR_CMD_WRITE_HP_NAME  0x6D
+#define USR_CMD_READ_HP_NAME   0x6E
+#define USR_CMD_READ_HP        0x6F
+
+/* USR CMD EXTENSION */
+#define USR_CMD_NO_SHUTDOWN                 0xC0
+#define USR_CMD_SET_SYSTEM_PARAMETER        0xC1
+#define USR_CMD_GET_SYSTEM_PARAMETER        0xC2
+#define USR_CMD_RETORE_DEFAULT_SYSTEM_PARAMETER        0xC3
+#define USR_CMD_ENTER_SHIPMODE                      0xC4
+#define USR_CMD_AUTO_TEST                   0xC5
+#define USR_CMD_GET_HAPTIC_FREQ             0xC6
+#define USR_CMD_SET_HAPTIC_FREQ             0xC7
+#define USR_CMD_SET_INI_VERSION             0xC8
+#define USR_CMD_GET_INI_VERSION             0xC9
+#define USR_CMD_UPDATE_HEAT_PROFILE         0xCA
+#define USR_CMD_EXTEND_MODE_GET             0xCB
+#define USR_CMD_EXTEND_MODE_SET             0xCC
+#define USR_CMD_GAUGE_UPDATE                0xCE
+#define USR_CMD_READ_SN                     0xCF
+
+#define SESSIONS_NUM_IN_ONE_PACKET 5
+
+typedef enum
+{
+    BAT_HOT_PROTECT = 0,
+    BAT_HOT_PROTECT_CLEAR,
+    HAPTIC_VOLT,
+    HAPTIC_PWM_FREQ,
+    EOL_SESSION,
+    STEP1_SESSION,
+    STEP2_SESSION,
+    STEP3_SESSION,
+    STEP4_SESSION,
+    SLOW_CHG_CURRENT,
+    SLOW_BATV_HIGH,
+    SLOW_BATV_LOW,
+    WRONG_CHG_VOLT,
+    STEP1_CHG_CURR,
+    STEP1_CHG_VOLT,
+    STEP2_CHG_CURR,
+    STEP2_CHG_VOLT,
+    STEP3_CHG_CURR,
+    STEP3_CHG_VOLT,
+    STEP4_CHG_CURR,
+    STEP4_CHG_VOLT,
+    STEP2_BAT_HOT_CHARGE,
+    STEP2_BAT_HOT_PROTECT,
+    FLT_BAT_HOT_PRE_SES ,
+    FLT_BAT_HOT_CHARGING,
+    FLT_BAT_HOT_CHARGING_CLEAR,
+    FLT_BAT_COLD_CHARGE,
+    FLT_BAT_COLD_CHARGE_CLEAR,
+    FLT_BAT_HOT,
+    FLT_BAT_HOT_CLEAR,
+    FLT_BAT_COLD_HEAT,
+    FLT_BAT_COLD_HEAT_CLEAR,
+    WAR_BAT_EMPTY,
+    WAR_BAT_LOW,
+    WAR_BAT_LOW_SOC,
+    WAR_BAT_VOLT_DAMAGE,
+    FLT_TC_ZONE1_HOT,
+    FLT_TC_ZONE1_HOT_CLEAR,
+    FLT_TC_ZONE2_HOT,
+    FLT_TC_ZONE2_HOT_CLEAR,
+//    FLT_TC_ZONE1_COLD,
+//    FLT_TC_ZONE1_COLD_CLEAR,
+//    FLT_TC_ZONE2_COLD,
+//    FLT_TC_ZONE2_COLD_CLEAR,
+    FLT_BAT_VOLTAGE_OVER,
+    FLT_BAT_VOLTAGE_OVER_CLEAR,
+    FLT_BAT_DISCHARGE_CURR_OVER,
+    FLT_BAT_CHARGE_CURR_OVER,
+    FLT_CO_JUNC_HOT,
+    FLT_CO_JUNC_HOT_CLEAR,
+//    FLT_CO_JUNC_COLD,
+//    FLT_CO_JUNC_COLD_CLEAR,
+    FLT_BAT_I_SENSE_DAMAGE,
+    FLT_CIC_CHARGE_TIMEOUT,
+    FLT_COIL_HOT_TEMP,
+    FLT_COIL_HOT_TEMP_CLEAR,
+    FLT_USB_HOT_TEMP,
+    FLT_USB_HOT_TEMP_CLEAR,
+//    FLT_USB_COLD_TEMP,
+//    FLT_USB_COLD_TEMP_CLEAR,
+    SYSTEM_MAX,
+}system_parameter_n;
+
+
+
+static char system_parameter_name[SYSTEM_MAX][32]={
+    {"BAT_HOT_PROTECT_THRESHOLD"},
+    {"BAT_HOT_PROTECT_RELEASE"},
+    {"HAPTIC_VOLT(0-3600)mv"},
+    {"HAPTIC_PWM_FREQ(0-1200)kHz"},
+    {"EOL_SESSION"},
+    {"STEP1_SESSION"},
+    {"STEP2_SESSION"},
+    {"STEP3_SESSION"},
+    {"STEP4_SESSION"},
+    {"SLOW_CHG_CURRENT(mA)"},
+    {"SLOW_BATV_HIGH(mv)"},
+    {"SLOW_BATV_LOW(mv)"},
+    {"WRONG_CHG_VOLT(mv)"},
+    {"STEP1_CHG_CURR(mA)"},
+    {"STEP1_CHG_VOLT(mv)"},
+    {"STEP2_CHG_CURR(mA)"},
+    {"STEP2_CHG_VOLT(mv)"},
+    {"STEP3_CHG_CURR(mA)"},
+    {"STEP3_CHG_VOLT(mv)"},
+    {"STEP4_CHG_CURR(mA)"},
+    {"STEP4_CHG_VOLT(mv)"},
+    {"STEP2_BAT_HOT_CHARGE"},
+    {"STEP2_BAT_HOT_PROTECT"},
+    {"FLT_BAT_HOT_PRE_SES"},
+    {"FLT_BAT_HOT_CHARGING"},
+    {"FLT_BAT_HOT_CHARGE_CLEAR"},
+    {"FLT_BAT_COLD_CHARGE"},
+    {"FLT_BAT_COLD_CHARGE_CLEAR"},
+    {"FLT_BAT_HOT"},
+    {"FLT_BAT_HOT_CLEAR"},
+    {"FLT_BAT_COLD_HEAT"},
+    {"FLT_BAT_COLD_HEAT_CLEAR"},
+    {"WAR_BAT_EMPTY"},
+    {"WAR_BAT_LOW(3001~4000)"},
+    {"WAR_BAT_LOW_SOC(0~99)"},
+    {"WAR_BAT_VOLT_DAMAGE"},
+    {"FLT_TC_ZONE1_HOT"},
+    {"FLT_TC_ZONE1_HOT_CLEAR"},
+    {"FLT_TC_ZONE2_HOT"},
+    {"FLT_TC_ZONE2_HOT_CLEAR"},
+//    {"FLT_TC_ZONE1_COLD"},
+//    {"FLT_TC_ZONE1_COLD_CLEAR"},
+//    {"FLT_TC_ZONE2_COLD"},
+//    {"FLT_TC_ZONE2_COLD_CLEAR"},
+    {"FLT_BAT_VOLTAGE_OVER"},
+    {"FLT_BAT_VOLTAGE_OVER_CLEAR"},
+    {"FLT_BAT_DISCHARGE_CURR_OVER"},
+    {"FLT_BAT_CHARGE_CURR_OVER"},
+    {"FLT_CO_JUNC_HOT"},
+    {"FLT_CO_JUNC_HOT_CLEAR"},
+//    {"FLT_CO_JUNC_COLD"},
+//    {"FLT_CO_JUNC_COLD_CLEAR"},
+    {"FLT_BAT_I_SENSE_DAMAGE"},
+    {"FLT_CIC_CHARGE_TIMEOUT"},
+    {"FLT_COIL_HOT_TEMP"},
+    {"FLT_COIL_HOT_TEMP_CLEAR"},
+    {"FLT_USB_HOT_TEMP"},
+    {"FLT_USB_HOT_TEMP_CLEAR"},
+//    {"FLT_USB_COLD_TEMP"},
+//    {"FLT_USB_COLD_TEMP_CLEAR"},
+};
+
+
+uint8_t get_upload_error_flag(void);
+void set_cycle_log_flag(uint8_t value);
+uint8_t get_cycle_log_flag(void);
+uint8_t get_heat_log_16ms_flag(void);
+uint8_t get_charge_IC_log_flag(void);
+uint8_t get_no_shutdown_flag(void);
+void get_sw_version(void);
+
+void parse_usr_cmd(uint8_t cmd, uint8_t *pdata, uint16_t len);
+
+void respond_usr_cmd(uint8_t cmd, uint8_t *pdata, uint16_t len);
+
+void test_display_error(void);
+void test_display_lifecycle_100_sessions(void);
+uint8_t get_hwid_level(void);
+
+#endif
+
+
